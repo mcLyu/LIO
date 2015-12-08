@@ -10,27 +10,28 @@ namespace MasterLIO
     {
         public static UserProfile AuthorizeUser(String login, String password)
         {
-            
+
+            return null;
         }
 
         public static UserProfile RegisterUser(String login, String password)
         {
-
+            return null;
         }
 
         public static void RemoveUser(UserProfile user)
         {
-
+           
         }
 
         public static Statistic GetUserStatistic(UserProfile user)
         {
-
+            return null;
         }
 
         public static UserProfile GetUserById(int userId)
         {
-
+            return null;
         }
 
         public static void SaveExercise(Exercise exercise)
