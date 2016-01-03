@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MasterLIO
 {
-    class DBUtils
+    class DBStub
     {
         public static UserProfile AuthorizeUser(String login, String password)
         {
@@ -21,7 +21,7 @@ namespace MasterLIO
 
         public static void RemoveUser(UserProfile user)
         {
-           
+
         }
 
         public static Statistic GetUserStatistic(UserProfile user)
@@ -46,7 +46,13 @@ namespace MasterLIO
 
         public static List<UserProfile> LoadAllUsers()
         {
-            return null;
+            List<UserProfile> users = new List<UserProfile>();
+
+            users.Add(new UserProfile("Otreshko", "selfie", Role.ADMIN));
+            users.Add(new UserProfile("Lyubaikin", "thebest", Role.ADMIN));
+            users.Add(new UserProfile("Ivanov", "siski", Role.STUDENT));
+
+            return users;
         }
     }
 }

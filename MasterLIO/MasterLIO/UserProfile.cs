@@ -28,6 +28,16 @@ namespace MasterLIO
             this.role = role;
             this.statistic = statistic;
         }
+
+        public override string ToString()
+        {
+            return login;
+        }
+
+        public static List<Role> getRoles()
+        {
+            return Enum.GetValues(typeof(Role)).Cast<Role>().ToList<Role>();
+        }
     }
 
     enum Role {ADMIN, STUDENT}
