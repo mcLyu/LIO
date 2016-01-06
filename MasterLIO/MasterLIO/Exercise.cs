@@ -11,10 +11,26 @@ namespace MasterLIO
         public String name { get; set; }
         public int length { get; set; }
         public int maxErrors { get; set; }
-        public DateTime maxTime { get; set; }
+        public int maxTime { get; set; }
         public List<KeyboardArea> areas { get; set; }
         public String text { get; set; }
         public int level { get; set; }
+
+        public Exercise()//sample
+        {
+            this.name = "Sample";
+            this.text = "aaabbbccc";
+            
+            List<KeyboardArea> sampleAreas = new List<KeyboardArea>();
+            sampleAreas.Add(KeyboardArea.NINE);
+            sampleAreas.Add(KeyboardArea.ONE);
+
+            this.areas = sampleAreas;
+
+            this.maxErrors = 4;
+            this.level = areas.Capacity;
+            this.length = this.text.Length;
+        }
 
         public Exercise(String name, String text, List<KeyboardArea> areas, int maxErrors) 
         {
@@ -23,9 +39,10 @@ namespace MasterLIO
             this.areas = areas;
             this.maxErrors = maxErrors;
             this.level = areas.Capacity; // уровень = количеству заюзаных зон
+            this.length = text.Length;
         }
 
-        public Exercise(String name, String text, List<KeyboardArea> areas, int maxErrors, DateTime maxTime) 
+        public Exercise(String name, String text, List<KeyboardArea> areas, int maxErrors, int maxTime) 
         {
             this.name = name;
             this.text = text;
@@ -33,6 +50,17 @@ namespace MasterLIO
             this.maxErrors = maxErrors;
             this.level = areas.Capacity;
             this.maxTime = maxTime;
+            this.length = text.Length;
+        }
+
+        public String getAreasAsString()
+        {
+            String stringAreas = "";
+            foreach (KeyboardArea area in areas)
+            {
+                stringAreas += area.ToString() + " ";
+            }
+            return stringAreas;
         }
     }
 

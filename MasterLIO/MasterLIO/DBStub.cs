@@ -8,9 +8,25 @@ namespace MasterLIO
 {
     class DBStub
     {
+        static List<UserProfile> users = new List<UserProfile>();
+        static UserProfile otreshko = new UserProfile("Otreshko", "selfie", Role.ADMIN);
+        static UserProfile lyubaikin = new UserProfile("Lyubaikin", "thebest", Role.ADMIN);
+        static UserProfile ivanov = new UserProfile("Ivanov", "siski", Role.STUDENT);
+
+        static DBStub() 
+        {
+            Statistic statistic = new Statistic();
+            statistic.addResult(new ExerciseResultInfo(new Exercise(),new DateTime(2016,1,3), 4, 3));
+            statistic.addResult(new ExerciseResultInfo(new Exercise(), new DateTime(2016, 1, 2), 4, 3));
+            statistic.addResult(new ExerciseResultInfo(new Exercise(), new DateTime(2016, 1, 1), 4, 3));
+
+            users.Add(otreshko);
+            users.Add(lyubaikin);
+            users.Add(ivanov);
+        }
+
         public static UserProfile AuthorizeUser(String login, String password)
         {
-
             return null;
         }
 
@@ -24,9 +40,9 @@ namespace MasterLIO
 
         }
 
-        public static Statistic GetUserStatistic(UserProfile user)
+        public static Statistic GetUserStatistic(long userId)
         {
-            return null;
+            return lyubaikin.statistic;
         }
 
         public static UserProfile GetUserById(int userId)
@@ -36,7 +52,7 @@ namespace MasterLIO
 
         public static void SaveExercise(Exercise exercise)
         {
-
+            
         }
 
         public static List<Exercise> LoadExercises()
@@ -46,12 +62,6 @@ namespace MasterLIO
 
         public static List<UserProfile> LoadAllUsers()
         {
-            List<UserProfile> users = new List<UserProfile>();
-
-            users.Add(new UserProfile("Otreshko", "selfie", Role.ADMIN));
-            users.Add(new UserProfile("Lyubaikin", "thebest", Role.ADMIN));
-            users.Add(new UserProfile("Ivanov", "siski", Role.STUDENT));
-
             return users;
         }
     }

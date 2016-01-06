@@ -17,7 +17,7 @@ namespace MasterLIO.Forms
             InitializeComponent();
             passwordtextBox2.UseSystemPasswordChar = true;
 
-            List<UserProfile> users = DBStub.LoadAllUsers();
+            List<UserProfile> users = DBUtils.LoadAllUsers();
             userlistBox1.Items.AddRange(users.ToArray());
 
             rolecomboBox1.Items.Add(Role.ADMIN);
@@ -44,5 +44,5 @@ namespace MasterLIO.Forms
 
 
     }
-    enum Role { ADMIN, STUDENT }
+    
 }
