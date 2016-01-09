@@ -18,7 +18,7 @@ namespace MasterLIO
             this.login = login;
             this.password = password;
             this.role = role;
-            statistic = new Statistic();
+            statistic = new Statistic(IDGenerator.CreateId());
         }
         
         public UserProfile(String login, String password, Role role, Statistic statistic)

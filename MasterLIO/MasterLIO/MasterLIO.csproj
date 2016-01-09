@@ -54,6 +54,12 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="IdGen">
+      <HintPath>..\packages\IdGen.1.1.0\lib\net45\IdGen.dll</HintPath>
+    </Reference>
+    <Reference Include="idgen.net">
+      <HintPath>..\packages\idgen.net.1.1.0.0\lib\portable-net45+sl50+win+wpa81+wp80\idgen.net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -78,7 +84,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBStub.cs" />
     <Compile Include="DBUtils.cs" />
     <Compile Include="Exercise.cs" />
     <Compile Include="ExerciseResultInfo.cs" />
@@ -132,6 +137,7 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IDGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statistic.cs" />
@@ -164,6 +170,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="IdGenHelp.chm" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

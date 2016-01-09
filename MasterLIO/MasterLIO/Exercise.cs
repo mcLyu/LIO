@@ -8,6 +8,7 @@ namespace MasterLIO
 {
     class Exercise
     {
+        public int id { get; set; }
         public String name { get; set; }
         public int length { get; set; }
         public int maxErrors { get; set; }

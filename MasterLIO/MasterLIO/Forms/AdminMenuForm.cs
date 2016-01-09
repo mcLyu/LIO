@@ -15,7 +15,6 @@ namespace MasterLIO.Forms
         public AdminMenuForm()
         {
             InitializeComponent();
-            DBUtils.SaveExercise(new Exercise());
         }
 
         private void ExerciseButton_Click(object sender, EventArgs e)
