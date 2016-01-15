@@ -8,25 +8,23 @@ namespace MasterLIO
 {
     class UserProfile
     {
+        public int userId { get; set; }
         public String login {get;set;}
         public String password { get; set; } 
         public Role role { get; set; } 
         public Statistic statistic { get; set; }
+        public Session session { get; set; }
 
-        public UserProfile(String login, String password, Role role)
+
+
+        public UserProfile(String login, String password, Role role, int id)
         {
+            this.userId = id;
             this.login = login;
             this.password = password;
             this.role = role;
-            statistic = new Statistic(IDGenerator.CreateId());
-        }
-        
-        public UserProfile(String login, String password, Role role, Statistic statistic)
-        {
-            this.login = login;
-            this.password = password;
-            this.role = role;
-            this.statistic = statistic;
+            statistic = new Statistic(userId);
+            session = new Session();
         }
 
         public override string ToString()

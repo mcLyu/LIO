@@ -22,13 +22,57 @@ namespace MasterLIO
 
         public static UserProfile AuthorizeUser(String login, String password)
         {
+            UserProfile profile = null;
+            connection.Open();
+            command = new SQLiteCommand("SELECT * FROM 'User_Profile';", connection);
+            reader = command.ExecuteReader();
 
-            return null;
+            while (reader.Read())
+            {
+                if (reader["login"].ToString().Equals(login))
+                {
+                    if (reader["password"].ToString().Equals(password))
+                    {
+                        string isAdmin = reader["isAdmin"].ToString();
+                        
+                        Role role;
+                        if (isAdmin == "True") role = Role.ADMIN;
+                        else role = Role.STUDENT;
+                        int id = Convert.ToInt32(reader["user_id"].ToString());
+
+                        profile = new UserProfile(login, password, role,id);
+                    }
+                    else
+                    {
+                        //login exists, password not exist!
+                        profile = new UserProfile(login, "", Role.STUDENT, 123);
+                    }
+                }
+            }
+
+            if (profile == null) profile = new UserProfile("", "", Role.STUDENT, 123);
+
+            connection.Close();
+
+            return profile;
         }
 
         public static UserProfile RegisterUser(String login, String password)
         {
-            return null;
+            connection.Open();
+            command = new SQLiteCommand("INSERT INTO 'User_Profile' (user_id,login,password,isAdmin) VALUES (@param1,@param2,@param3,@param4)", connection);
+
+            int id = IDGenerator.CreateId();
+            command.Parameters.Add(new SQLiteParameter("@param1", id));
+            command.Parameters.Add(new SQLiteParameter("@param2", login));
+            command.Parameters.Add(new SQLiteParameter("@param3", password));
+            command.Parameters.Add(new SQLiteParameter("@param4", "0"));
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+
+            return new UserProfile(login, password, Role.STUDENT, id);
         }
 
         public static void RemoveUser(UserProfile user)
@@ -107,12 +151,13 @@ namespace MasterLIO
                 string login = reader["login"].ToString();
                 string password = reader["password"].ToString();
                 string isAdmin = reader["isAdmin"].ToString();
+                int id = Convert.ToInt32(reader["user_id"].ToString());
 
                 Role role;
                 if (isAdmin == "1") role = Role.ADMIN;
                 else role = Role.STUDENT;
 
-                profiles.Add(new UserProfile(login, password, role));
+                profiles.Add(new UserProfile(login, password, role,id));
 
             }
 

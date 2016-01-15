@@ -21,11 +21,42 @@ namespace MasterLIO
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            //TODO: Add the checker for User, Admin and correct password and user name 
-            Boolean isUser = false;
-            //FormsFactory.SetUser();
+            //MONKEY CODE!!!   ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
-            if (isUser)
+            if (loginField.Text == "" || passwordField.Text == "") {
+                this.TopMost = true; //Ставим текущую форму поверх всех окон
+                MessageBox.Show("Не все поля заполнены!"); 
+                return;
+            }
+
+            UserProfile profile = DBUtils.AuthorizeUser(loginField.Text, passwordField.Text);
+
+            //такой пользователь не найден
+            if (profile.password.Equals("") && profile.login.Equals(""))
+            {
+                DialogResult result = MessageBox.Show("Такой пользователь не найден! Зарегистрировать?",
+                    "Зарегистрировать?", MessageBoxButtons.YesNo);
+
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+
+                    profile = DBUtils.RegisterUser(loginField.Text, passwordField.Text);
+
+                    this.Close();
+                    return;
+                }
+            }
+            //логин найден, пароль нет
+            else if (profile.password.Equals(""))
+            {
+                this.TopMost = true; 
+                MessageBox.Show("Пароль неверен! Повторите ввод!");
+                return;
+            }
+
+            FormsFactory.SetUser(profile);
+
+            if (profile.role.Equals(Role.STUDENT))
             {
                 FormUtils.OpenFormAndCloseCurrent(this, FormsFactory.GetUserMenuForm());
             }

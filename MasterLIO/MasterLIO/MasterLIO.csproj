@@ -54,9 +54,6 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="IdGen">
-      <HintPath>..\packages\IdGen.1.1.0\lib\net45\IdGen.dll</HintPath>
-    </Reference>
     <Reference Include="idgen.net">
       <HintPath>..\packages\idgen.net.1.1.0.0\lib\portable-net45+sl50+win+wpa81+wp80\idgen.net.dll</HintPath>
     </Reference>
@@ -140,6 +137,7 @@
     <Compile Include="IDGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Session.cs" />
     <Compile Include="Statistic.cs" />
     <Compile Include="UserProfile.cs" />
     <EmbeddedResource Include="Forms\AdminMenuForm.resx">
@@ -170,7 +168,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="IdGenHelp.chm" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -9,9 +9,10 @@ namespace MasterLIO
 {
     class IDGenerator
     {
-        public static long CreateId()
+        public static int CreateId()
         {
-            return Convert.ToInt64(Idgen.Net.IdGen.GenerateDni());
+            String id = IdGen.GenerateDni();
+            return Convert.ToInt32(id.Substring(0,id.Length-1));//MAGIC!!!
         }
     }
 }
