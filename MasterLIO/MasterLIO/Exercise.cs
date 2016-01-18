@@ -54,6 +54,29 @@ namespace MasterLIO
             this.length = text.Length;
         }
 
+        public Exercise(int id, String name, String text, List<KeyboardArea> areas, int maxErrors)
+        {
+            this.id = id;
+            this.name = name;
+            this.text = text;
+            this.areas = areas;
+            this.maxErrors = maxErrors;
+            this.level = areas.Capacity; // уровень = количеству заюзаных зон
+            this.length = text.Length;
+        }
+
+        public Exercise(int id, String name, String text, List<KeyboardArea> areas, int maxErrors, int maxTime)
+        {
+            this.id = id;
+            this.name = name;
+            this.text = text;
+            this.areas = areas;
+            this.maxErrors = maxErrors;
+            this.level = areas.Capacity; // уровень = количеству заюзаных зон
+            this.maxTime = maxTime;
+            this.length = text.Length;
+        }
+
         public String getAreasAsString()
         {
             String stringAreas = "";
@@ -62,6 +85,23 @@ namespace MasterLIO
                 stringAreas += area.ToString() + " ";
             }
             return stringAreas;
+        }
+
+        public static List<KeyboardArea> getAreasList(String areas)
+        {
+            List<KeyboardArea> enumAreas = new List<KeyboardArea>();
+
+            string[] areasList = areas.Split(new Char [] {' '});
+            
+            foreach (string area in areasList){
+                if (System.Enum.IsDefined(typeof(KeyboardArea), area))
+                {
+                    KeyboardArea enumArea = (KeyboardArea)Enum.Parse(typeof(KeyboardArea), area);
+                    enumAreas.Add(enumArea);
+                }
+            }
+
+            return enumAreas;
         }
     }
 

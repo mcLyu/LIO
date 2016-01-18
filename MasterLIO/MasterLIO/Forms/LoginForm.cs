@@ -16,6 +16,7 @@ namespace MasterLIO
         public LoginForm()
         {
             InitializeComponent();
+            DBUtils.LoadExercises();
         }
 
 

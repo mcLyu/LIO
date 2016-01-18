@@ -67,11 +67,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(651, 9);
+            this.label2.Location = new System.Drawing.Point(660, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 17);
+            this.label2.Size = new System.Drawing.Size(63, 17);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Сложность";
+            this.label2.Text = "Уровень";
             // 
             // label3
             // 
@@ -120,10 +120,12 @@
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.LightCoral;
             this.textBox1.Location = new System.Drawing.Point(432, 34);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(153, 22);
             this.textBox1.TabIndex = 7;
+            this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
             // 
             // label8
             // 
@@ -136,13 +138,30 @@
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.BackColor = System.Drawing.Color.GreenYellow;
             this.numericUpDown1.Location = new System.Drawing.Point(432, 98);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            75,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(70, 22);
             this.numericUpDown1.TabIndex = 9;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // numericUpDown2
             // 
+            this.numericUpDown2.BackColor = System.Drawing.Color.GreenYellow;
             this.numericUpDown2.Location = new System.Drawing.Point(432, 157);
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(120, 22);
@@ -150,7 +169,13 @@
             // 
             // numericUpDown3
             // 
+            this.numericUpDown3.BackColor = System.Drawing.Color.GreenYellow;
             this.numericUpDown3.Location = new System.Drawing.Point(432, 219);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown3.TabIndex = 11;
@@ -166,8 +191,10 @@
             // 
             // areasTextBox
             // 
+            this.areasTextBox.BackColor = System.Drawing.Color.LightCoral;
             this.areasTextBox.Location = new System.Drawing.Point(432, 275);
             this.areasTextBox.Name = "areasTextBox";
+            this.areasTextBox.ReadOnly = true;
             this.areasTextBox.Size = new System.Drawing.Size(146, 22);
             this.areasTextBox.TabIndex = 13;
             // 
@@ -185,6 +212,7 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(432, 324);
             this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(146, 22);
             this.textBox3.TabIndex = 13;
             // 
@@ -228,6 +256,7 @@
             // 
             this.richTextBox1.Location = new System.Drawing.Point(13, 34);
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(403, 312);
             this.richTextBox1.TabIndex = 18;
             this.richTextBox1.Text = "";

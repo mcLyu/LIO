@@ -136,7 +136,65 @@ namespace MasterLIO
 
         public static List<Exercise> LoadExercises()
         {
-            return null;
+            List<Exercise> exercises = new List<Exercise>();
+            connection.Open();
+            command = new SQLiteCommand("SELECT * FROM 'Exercise';", connection);
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                string name = reader["name"].ToString();
+                string text = reader["text"].ToString();
+                string keyboardAreas = reader["keyboard_areas"].ToString();
+                int level = Convert.ToInt16(reader["level"].ToString());
+                int maxTime = Convert.ToInt32(reader["max_time"].ToString());
+                int maxErrors = Convert.ToInt32(reader["max_errors"].ToString());
+                int id = Convert.ToInt32(reader["exercise_id"].ToString());
+                string areas =  reader["keyboard_areas"].ToString();
+           
+                List<KeyboardArea> listAreas = Exercise.getAreasList(areas);
+                Exercise exercise = new Exercise(id, name, text, listAreas, maxErrors, maxTime);
+                exercises.Add(exercise);
+
+            }
+
+            connection.Close();
+
+            return exercises;
+        }
+
+        public static List<Exercise> LoadExercises(int exLevel)
+        {
+            List<Exercise> exercises = new List<Exercise>();
+            connection.Open();
+            command = new SQLiteCommand("SELECT * FROM 'Exercise' where level=@param1;", connection);
+            command.Parameters.Add(new SQLiteParameter("@param1", exLevel));
+
+            reader = command.ExecuteReader();
+            
+
+            while (reader.Read())
+            {
+
+                string name = reader["name"].ToString();
+                string text = reader["text"].ToString();
+                string keyboardAreas = reader["keyboard_areas"].ToString();
+                int level = Convert.ToInt16(reader["level"].ToString());
+                int maxTime = Convert.ToInt32(reader["max_time"].ToString());
+                int maxErrors = Convert.ToInt32(reader["max_errors"].ToString());
+                int id = Convert.ToInt32(reader["exercise_id"].ToString());
+                string areas = reader["keyboard_areas"].ToString();
+
+                List<KeyboardArea> listAreas = Exercise.getAreasList(areas);
+                Exercise exercise = new Exercise(id, name, text, listAreas, maxErrors, maxTime);
+                exercises.Add(exercise);
+
+            }
+
+            connection.Close();
+
+            return exercises;
         }
 
         public static List<UserProfile> LoadAllUsers()
