@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace MasterLIO
 {
-    class Session
+    static class Session
     {
+        public static Exercise CurrentExercise { get; set; }
+        public static ExerciseResultInfo CurrentResultInfo { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace MasterLIO
         public Exercise()//sample
         {
             this.name = "Sample";
-            this.text = "aaabbbccc";
+            this.text = "aaa";
             
             List<KeyboardArea> sampleAreas = new List<KeyboardArea>();
             sampleAreas.Add(KeyboardArea.NINE);
@@ -85,6 +85,16 @@ namespace MasterLIO
                 stringAreas += area.ToString() + " ";
             }
             return stringAreas;
+        }
+
+        public List<Char> getTextsAsArrayChar()
+        {
+            List<Char> arrayChar = new List<Char>();
+            for (int i = 0; i < this.text.Length;i++ )
+            {
+                arrayChar.Add(this.text[i]);
+            }
+            return arrayChar;
         }
 
         public static List<KeyboardArea> getAreasList(String areas)
