@@ -9,7 +9,7 @@ namespace MasterLIO
 {
     class DBUtils
     {
-        private const string dbName = @"C:\Users\Mill\Desktop\LIO\MasterLIO\MasterLIO\db\LIO_DATA.db";
+        private const string dbName = "LIO_DATA.db";
         private static SQLiteConnection connection;
         private static SQLiteCommand command;
         private static SQLiteDataReader reader;
