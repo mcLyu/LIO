@@ -19,6 +19,7 @@ namespace MasterLIO.Forms
 
         private void ExerciseButton_Click(object sender, EventArgs e)
         {
+            Session.CurrentExercise = new Exercise();
             FormUtils.OpenFormAndSaveHierarchy(this, FormsFactory.GetExerciseForm()); 
         }
 

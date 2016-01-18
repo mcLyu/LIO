@@ -27,7 +27,7 @@ namespace MasterLIO
             this.level = 0;
         }
 
-        public ExerciseResultInfo(Exercise exercise, DateTime dateOfPassing, int errorsCount, int assesment, int speed, int level)
+        public ExerciseResultInfo(Exercise exercise, DateTime dateOfPassing, int errorsCount, int assesment, int speed)
         {
             this.exercise=exercise;
             this.dateOfPassing = dateOfPassing;
@@ -37,7 +37,7 @@ namespace MasterLIO
             this.level = level;
         }
 
-        public ExerciseResultInfo(int exerciseId, DateTime dateOfPassing, int errorsCount, int assesment, int speed, int level)
+        public ExerciseResultInfo(int exerciseId, DateTime dateOfPassing, int errorsCount, int assesment, int speed)
         {
             this.exerciseId = exerciseId;
             this.dateOfPassing = dateOfPassing;

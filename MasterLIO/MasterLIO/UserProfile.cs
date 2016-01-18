@@ -13,8 +13,7 @@ namespace MasterLIO
         public String password { get; set; } 
         public Role role { get; set; } 
         public Statistic statistic { get; set; }
-        public Session session { get; set; }
-
+        
 
 
         public UserProfile(String login, String password, Role role, int id)
@@ -24,7 +23,6 @@ namespace MasterLIO
             this.password = password;
             this.role = role;
             statistic = new Statistic(userId);
-            session = new Session();
         }
 
         public override string ToString()

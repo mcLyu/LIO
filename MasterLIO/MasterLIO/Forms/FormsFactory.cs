@@ -35,6 +35,7 @@ namespace MasterLIO.Forms
             return new ExerciseForm();
         }
 
+
         public static Form GetStatisticForm()
         {
             return new StatisticForm();

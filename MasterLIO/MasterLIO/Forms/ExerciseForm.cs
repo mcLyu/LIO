@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace MasterLIO.Forms
 {
@@ -14,29 +15,59 @@ namespace MasterLIO.Forms
     {
         List<Char> list;
         int index;
-        int missedCount = 3;
+        Exercise exercise;
+        bool isRuning;
+        Stopwatch watch;
+        Stats stats;
+        private void clearAll()
+        {
+            list = exercise.getTextsAsArrayChar();
+
+            index = 0;
+            difficultyProgressBar.Minimum = 0;
+            difficultyProgressBar.Maximum = list.Count;
+            isRuning = true;
+            listBox1.Items.Clear();
+            listBox1.Refresh();
+            timer1.Enabled = true;
+            timer1.Start();
+            watch = new Stopwatch();
+            watch.Start();
+            stats = new Stats();
+        }
+
+
         public ExerciseForm()
         {
             InitializeComponent();
+            exercise = Session.CurrentExercise;
+            list = exercise.getTextsAsArrayChar();
+
+            stats = new Stats();
+
             pictureBox1.Load("1.jpg");
-
-            list = new List<Char>();
-            list.Add('a');
-            list.Add('b');
-            list.Add('c');
-            list.Add('d');
-            list.Add('e');
-
+            
             index = 0;
-
             difficultyProgressBar.Minimum = 0;
             difficultyProgressBar.Maximum = list.Count;
+            isRuning = true;
 
+            watch = new Stopwatch();
+            watch.Start();
+            
         }
-        Stats stats = new Stats();
+
+
+        
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            double errorsCount = stats.Missed;
+            double maxErrorsCount = exercise.maxErrors;
+            
+
+            int assigment = (int)(5 * (1 - errorsCount / maxErrorsCount));
+
             if (index < list.Count && listBox1.Items.Count < 4)
             {
                 listBox1.Items.Add(list[index]);
@@ -44,11 +75,26 @@ namespace MasterLIO.Forms
 
             }
 
-            if (stats.Missed >= 3)
+            if (stats.Missed >= exercise.maxErrors)
             {
                 listBox1.Items.Clear();
                 listBox1.Items.Add("Game over");
+                isRuning = false;
                 timer1.Stop();
+                watch.Stop();
+                watch.Reset();
+                Session.CurrentResultInfo = new ExerciseResultInfo(exercise, new DateTime(), stats.Missed, assigment, watch.Elapsed.Seconds);
+                Int32 command = 0;
+                ExeciseResult execiseResult = new ExeciseResult();
+                execiseResult.ShowDialog();
+                if( command == 1){
+                    clearAll();
+                }
+
+                if (command == 2)
+                {
+                    this.Close();
+                }
             }
 
             if (stats.Correct == list.Count)
@@ -56,6 +102,24 @@ namespace MasterLIO.Forms
                 listBox1.Items.Clear();
                 listBox1.Items.Add("Win!!!!");
                 timer1.Stop();
+                watch.Stop();
+                isRuning = false;
+                Session.CurrentResultInfo = new ExerciseResultInfo(exercise, new DateTime(), stats.Missed, assigment, watch.Elapsed.Seconds);
+
+                ExeciseResult execiseResult = new ExeciseResult();
+                execiseResult.ShowDialog();
+                int command = execiseResult.getCommand();
+                execiseResult.Close();
+                if (command == 1)
+                {
+                    clearAll();
+                }
+
+                if (command == 2)
+                {
+                    this.Close();
+                }
+
             }
         }
 
@@ -69,7 +133,7 @@ namespace MasterLIO.Forms
 
         private void ExerciseForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.ShiftKey && e.KeyCode != Keys.ControlKey && listBox1.Items.Count != 0)
+            if (e.KeyCode != Keys.ShiftKey && e.KeyCode != Keys.ControlKey  && isRuning)
             {
 
                 Char keyChar = ConvertKeyToChar(e);
@@ -86,7 +150,6 @@ namespace MasterLIO.Forms
                 {
                     stats.Update(false);
                 }
-                // Update the labels on the StatusStrip
                 lblCorrect.Text = "Correct: " + stats.Correct;
                 lblMissed.Text = "Missed: " + stats.Missed;
                 lblTotal.Text = "Total: " + stats.Total;

@@ -184,7 +184,7 @@ namespace MasterLIO
                 DateTime dateOfPassing = Convert.ToDateTime(reader["dateOfPass"]);
                 int speed = Convert.ToInt32(reader["speed"]);
                 int errors = Convert.ToInt32(reader["errors"]);
-                resultInfo = new ExerciseResultInfo(exerciseId, dateOfPassing, errors, assesment, speed, level);
+                resultInfo = new ExerciseResultInfo(exerciseId, dateOfPassing, errors, assesment, speed);
                 results.Add(resultInfo);
             }
 
