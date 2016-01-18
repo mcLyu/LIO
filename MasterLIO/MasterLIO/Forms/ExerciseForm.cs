@@ -12,39 +12,110 @@ namespace MasterLIO.Forms
 {
     public partial class ExerciseForm : Form
     {
-        String exec_text = "A B C D V E F G H I J K L M N O";
-
+        List<Char> list;
+        int index;
+        int missedCount = 3;
         public ExerciseForm()
         {
             InitializeComponent();
-            //textBox2.Fo
-            textBox1.Text = exec_text;
-            richTextBox1.Text = "";
-            textBox2.Text = "";
             pictureBox1.Load("1.jpg");
 
+            list = new List<Char>();
+            list.Add('a');
+            list.Add('b');
+            list.Add('c');
+            list.Add('d');
+            list.Add('e');
+
+            index = 0;
+
+            difficultyProgressBar.Minimum = 0;
+            difficultyProgressBar.Maximum = list.Count;
+
+        }
+        Stats stats = new Stats();
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (index < list.Count && listBox1.Items.Count < 4)
+            {
+                listBox1.Items.Add(list[index]);
+                index++;
+
+            }
+
+            if (stats.Missed >= 3)
+            {
+                listBox1.Items.Clear();
+                listBox1.Items.Add("Game over");
+                timer1.Stop();
+            }
+
+            if (stats.Correct == list.Count)
+            {
+                listBox1.Items.Clear();
+                listBox1.Items.Add("Win!!!!");
+                timer1.Stop();
+            }
         }
 
-
-
-        private void ExerciseForm_KeyPress(object sender, KeyPressEventArgs e)
+        private Char ConvertKeyToChar(KeyEventArgs e)
         {
-            if (textBox1.Text.StartsWith(e.KeyChar.ToString()))
+            int keyValue = e.KeyValue;
+            if (!e.Shift && keyValue >= (int)Keys.A && keyValue <= (int)Keys.Z)
+                return (char)(keyValue + 32);
+            return (char)keyValue;
+        }
+
+        private void ExerciseForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.ShiftKey && e.KeyCode != Keys.ControlKey && listBox1.Items.Count != 0)
             {
-                textBox2.Text = textBox2.Text + e.KeyChar;
-                richTextBox1.Text = richTextBox1.Text + e.KeyChar;
-                textBox1.Text = textBox1.Text.Substring(1);
-                if (richTextBox1.TextLength > 8)
+
+                Char keyChar = ConvertKeyToChar(e);
+                Char firstChar = (Char)listBox1.Items[0];
+
+                if (firstChar.Equals(keyChar))
                 {
-                    richTextBox1.Text = richTextBox1.Text.Substring(1);  
+                    listBox1.Items.Remove(listBox1.Items[0]);
+                    listBox1.Refresh();
+                    stats.Update(true);
+                    difficultyProgressBar.Value = stats.Correct;
                 }
+                else
+                {
+                    stats.Update(false);
+                }
+                // Update the labels on the StatusStrip
+                lblCorrect.Text = "Correct: " + stats.Correct;
+                lblMissed.Text = "Missed: " + stats.Missed;
+                lblTotal.Text = "Total: " + stats.Total;
+            }
+        }
+
+       
+    }
+
+
+    class Stats
+    {
+        public int Total = 0;
+        public int Missed = 0;
+        public int Correct = 0;
+        public int Accuracy = 0;
+        public void Update(bool correctKey)
+        {
+            Total++;
+            if (!correctKey)
+            {
+                Missed++;
             }
             else
             {
-
-                //TODO Add the red letter
-
+                Correct++;
             }
+            Accuracy = 100 * Correct / (Missed + Correct);
         }
     }
+
 }
